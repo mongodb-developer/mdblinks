@@ -22,7 +22,7 @@ if(!is_array($route) && $route->to) {
   <title>MDB.link redirector</title>
 </head>
 
-<body id="page-top" style="display:none">
+<body id="page-top" style="">
 
   <h1>Uh oh, that URL was not found</h1>
   <p>Did you mean to visit any of these sites?</p>
