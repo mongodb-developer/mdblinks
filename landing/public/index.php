@@ -1,4 +1,5 @@
 <?php
+  error_reporting(E_ERROR | E_PARSE);
   $url = "https://data.mongodb-api.com/app/landing-mgxlk/endpoint/landing?identifier=" . substr($_SERVER['REQUEST_URI'], 1);
   $contents = file_get_contents($url);
   $decoded = json_decode($contents);
