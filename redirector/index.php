@@ -24,7 +24,7 @@ if(!is_array($route) && $route->to) {
 
 <body id="page-top" style="display:none">
 
-  <h1>Oops, that URL was not found</h1>
+  <h1>Uh oh, that URL was not found</h1>
   <p>Did you mean to visit any of these sites?</p>
   <ul id="routeList">
     <?php
