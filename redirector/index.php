@@ -1,8 +1,30 @@
 <?
-$endpoint = "https://data.mongodb-api.com/app/redirector-odhgb/endpoint/getRoute";
-$url = $endpoint."?route=".$_SERVER['REQUEST_URI'];
-$contents = file_get_contents($url);
-$route = json_decode($contents);
+$apiUrl = $_ENV["API_URL"];
+$url = $apiUrl . "/routes/redirect?route=" . $_SERVER['REQUEST_URI'];
+
+$requestData = [
+  "remoteIPAddress" => $_SERVER['REMOTE_ADDR'],
+  "webhookUrl" => $_SERVER['REQUEST_URI'],
+  "rawQueryString" => $_SERVER['QUERY_STRING'],
+  "httpMethod" => $_SERVER['REQUEST_METHOD'],
+  "requestHeaders" => getallheaders(),
+  "service" => "REDIRECTOR",
+  "action" => "redirect",
+  "originalReferrer" => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null
+];
+
+// Send a POST request to the $url with the $requestData in the body
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+
+// $contents = file_get_contents($url);
+$route = json_decode($response);
+
 
 if(!is_array($route) && $route->to) {
   header('Location: '.$route->to);

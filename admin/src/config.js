@@ -10,6 +10,9 @@ const settings = {
   },
   LANDING: {
     URL: process.env.REACT_APP_LANDING_URL
+  },
+  API: {
+    URL: process.env.REACT_APP_API_URL
   }
 }
 

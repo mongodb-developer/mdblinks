@@ -1,0 +1,68 @@
+version: "3"
+services:
+  api:
+    image: node:20-alpine
+    ports:
+      - "5050:5050"
+    environment:
+      - PORT=5050
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mdblink:mdblink@mongodb:27017
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    command: "npm install"
+    entrypoint: "npm run dev"
+    networks:
+      - mdblinks
+  admin:
+    image: node:20-alpine
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:5050
+      - REACT_APP_LANDING_URL=http://localhost:3002
+    volumes:
+      - ./admin:/app
+    working_dir: /app
+    command: "npm install"
+    entrypoint: "npm start"
+  landing:
+    image: node:20-alpine
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:5050
+    volumes:
+      - ./landing:/app
+    working_dir: /app
+    command: "npm install"
+    entrypoint: "npm start"
+  redirector:
+    build:
+      context: ./redirector
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV=development
+      - API_URL=http://api:5050
+    volumes:
+      - ./redirector:/var/www/html
+    networks:
+      - mdblinks
+  mongodb:
+    image: mongodb/mongodb-community-server:7.0.4-ubi8
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=mdblink
+      - MONGODB_INITDB_ROOT_PASSWORD=mdblink
+    networks:
+    - mdblinks
+    volumes:
+      - ./_appsetup/dbseed:/docker-entrypoint-initdb.d
+networks:
+  mdblinks:

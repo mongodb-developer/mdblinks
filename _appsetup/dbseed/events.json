@@ -1,0 +1,23 @@
+[
+  {
+    "_id": {
+      "$oid": "6306c70b38093a53d9dd250b"
+    },
+    "oneliner": "Join us at MongoDB.local Frankfurt",
+    "ctaButton": {
+      "label": "Learn More",
+      "linkTo": "https://www.mongodb.com/frankfurt"
+    },
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        8.6821,
+        50.1109
+      ]
+    },
+    "date": {
+      "$date": "2023-09-21T04:00:00.000Z"
+    },
+    "details": "Join us at MongoDB.local Frankfurt for a day filled with educational breakout sessions, an announcement-packed keynote presentation, customer stories, free 1:1 Ask the Experts consulting sessions, networking opportunities, and more, all for free."
+  }
+]

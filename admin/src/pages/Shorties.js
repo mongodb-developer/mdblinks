@@ -15,10 +15,10 @@ import IconButton from '@leafygreen-ui/icon-button';
 import { Combobox, ComboboxOption } from '@leafygreen-ui/combobox';
 import { spacing } from '@leafygreen-ui/tokens';
 import InlineDefinition from "@leafygreen-ui/inline-definition";
-import { useRealm } from "../providers/Realm";
 import { css } from "@leafygreen-ui/emotion";
 import { useAuth0 } from "@auth0/auth0-react";
 import { sources, mediums } from "../utils/utmdata";
+import { useApi } from "../providers/Api";
 
 import * as QRCode from "qrcode";
 
@@ -47,10 +47,12 @@ export default function Routes () {
   let [showMyRoutes, setShowMyRoutes] = useState(true);
   let [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES.START_WITH_SLASH);
   let [allRoutes, setAllRoutes] = useState([]);
-  let { realmUser } = useRealm();
-  let currentUserId = realmUser?.id;
+  let [routeId, setRouteId] = useState(null);
 
   const { user } = useAuth0();
+  let currentUserId = user.sub;
+
+  const { fetchRoutes, fetchLandings, getRouteStats, deleteRoute, insertRoute, updateRoute } = useApi();
 
   let [url, setURL] = useState("");
   let [campaign, setCampaign] = useState("devrel");
@@ -121,27 +123,25 @@ export default function Routes () {
   const canvasRef = useRef(null);
 
   const getData = useCallback(async () => {
-    if(!realmUser) return;
-    let results = await realmUser.functions.getAllRoutes();
+    let results = await fetchRoutes();
     setData(results);
     setAllRoutes(results.map(r => r.route));
-  }, [realmUser]);
+  }, [fetchRoutes]);
 
   const getLandings = useCallback(async () => {
-    if (!realmUser) return;
-    let results = await realmUser.functions.getAllLandings();
+    let results = await fetchLandings();
     setLandings(results);
-  }, [realmUser]);
+  }, [fetchLandings]);
 
   const handleDelete = async (id) => {
-    await realmUser.functions.deleteRoute(id);
+    await deleteRoute(id);
     getData();
   }
 
   const handleModalConfirm = async() => {
-    let newRoute = {route, to, title, description, isPublic};
-    if (modalMode === "add") await realmUser.functions.insertRoute(newRoute);
-    if (modalMode === "edit") await realmUser.functions.updateRoute(newRoute);
+    let newRoute = {route, to, title, description, isPublic, owner: user.sub};
+    if (modalMode === "add") await insertRoute(newRoute);
+    if (modalMode === "edit") await updateRoute(routeId, newRoute);
     await getData();
     emptyForm();
     setInsertModalOpened(false);
@@ -161,12 +161,13 @@ export default function Routes () {
   const showChartModal = async (route) => {
     setChartModalOpened(true);
     setChartRoute(route);
-    let stats = await realmUser.functions.getRouteStats(route);
+    let stats = await getRouteStats(route);
     setRouteStats(stats);
   }
 
   const emptyForm = () => {
     setRoute("");
+    setRouteId(null)
     setTo("");
     setDescription("");
     setTitle("");
@@ -183,6 +184,7 @@ export default function Routes () {
 
   const editRoute = (route) => {
     let editRoute = data.find(r => r.route === route);
+    setRouteId(editRoute._id);
     setRoute(editRoute.route);
     setTo(editRoute.to);
     setDescription(editRoute.description);

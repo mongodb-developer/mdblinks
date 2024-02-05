@@ -1,0 +1,102 @@
+[
+  {
+    "_id": {
+      "$oid": "6304bea5cba94d747ec069c7"
+    },
+    "remoteIPAddress": "24.203.93.61",
+    "httpReferrer": "http://localhost:3000/",
+    "httpUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
+    "httpMethod": "POST",
+    "requestHeaders": {
+      "X-Envoy-External-Address": [
+        "24.203.93.61"
+      ],
+      "Cache-Control": [
+        "no-cache"
+      ],
+      "Sec-Ch-Ua": [
+        "\"Chromium\";v=\"104\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"104\""
+      ],
+      "Content-Type": [
+        "application/json"
+      ],
+      "User-Agent": [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
+      ],
+      "Sec-Fetch-Site": [
+        "cross-site"
+      ],
+      "Sec-Fetch-Mode": [
+        "cors"
+      ],
+      "Accept-Encoding": [
+        "gzip, deflate, br"
+      ],
+      "Pragma": [
+        "no-cache"
+      ],
+      "Sec-Ch-Ua-Platform": [
+        "\"macOS\""
+      ],
+      "Origin": [
+        "http://localhost:3000"
+      ],
+      "X-Forwarded-Proto": [
+        "https"
+      ],
+      "X-Cluster-Client-Ip": [
+        "24.203.93.61"
+      ],
+      "Accept": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiYWFzX2RldmljZV9pZCI6IjYzMDRiZWE1NzRjMmU3MWY1NzQxMjg1YSIsImJhYXNfZG9tYWluX2lkIjoiNjMwNGJiMWJjYmE5NGQ3NDdlYmVhNGNlIiwiZXhwIjoxNjYxMjU3MTMzLCJpYXQiOjE2NjEyNTUzMzMsImlzcyI6IjYzMDRiZWE1NzRjMmU3MWY1NzQxMjg1YiIsInN0aXRjaF9kZXZJZCI6IjYzMDRiZWE1NzRjMmU3MWY1NzQxMjg1YSIsInN0aXRjaF9kb21haW5JZCI6IjYzMDRiYjFiY2JhOTRkNzQ3ZWJlYTRjZSIsInN1YiI6IjYzMDRiZWE1NzRjMmU3MWY1NzQxMjg1MiIsInR5cCI6ImFjY2VzcyJ9.7H2D70_fGXXzCnrmmQ1A_oBLBwwdn2huhIoFEb5g_xw"
+      ],
+      "Sec-Ch-Ua-Mobile": [
+        "?0"
+      ],
+      "Sec-Fetch-Dest": [
+        "empty"
+      ],
+      "Content-Length": [
+        "50"
+      ],
+      "Referer": [
+        "http://localhost:3000/"
+      ],
+      "Accept-Language": [
+        "en-US,en;q=0.9"
+      ],
+      "X-Forwarded-For": [
+        "24.203.93.61"
+      ],
+      "X-Request-Id": [
+        "e739cc46-929a-4c4d-ba1e-0b138999d852"
+      ]
+    },
+    "service": "functions",
+    "action": "getRouteDetails",
+    "requestedRoute": "/cheers",
+    "timestamp": {
+      "$date": "2022-08-23T11:48:53.622Z"
+    },
+    "routeDetails": {
+      "_id": {
+        "$oid": "6304ba12a7b4348d21ecd75a"
+      },
+      "route": "/cheers",
+      "to": "https://www.mongodb.com/developer/events/orlando-code-camp/?utm_campaign=devrel&utm_source=event&utm_medium=cta&utm_content=occ&utm_term=joel.lord",
+      "isPublic": true,
+      "owner": "63063470602a04b18c013028",
+      "title": "Cheers",
+      "utms": {
+        "utm_campaign": "devrel",
+        "utm_source": "event",
+        "utm_medium": "cta",
+        "utm_content": "occ",
+        "utm_term": "joel.lord"
+      }
+    }
+  }
+]

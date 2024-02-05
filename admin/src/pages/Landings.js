@@ -9,10 +9,11 @@ import TextArea from '@leafygreen-ui/text-area';
 import ExpandableCard from '@leafygreen-ui/expandable-card';
 import { Table, TableHeader, Row, Cell } from '@leafygreen-ui/table';
 import IconButton from "@leafygreen-ui/icon-button";
-import { useRealm } from "../providers/Realm";
 import { css } from "@leafygreen-ui/emotion";
 import Config from "../config";
 import Modal from "@leafygreen-ui/modal";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useApi } from "../providers/Api";
 
 import * as QRCode from "qrcode";
 
@@ -65,14 +66,15 @@ const qrCodeModalStyle = css`
 text-align: center;
 `
 export default function Landings() {
-  const { realmUser } = useRealm();
-  let currentUserId = realmUser?.id;
+  const { user } = useAuth0();
+  let currentUserId = user.sub;
+
+  const { fetchLandings, insertLanding, updateLanding } = useApi();
 
   const getLandings = useCallback(async () => {
-    if (!realmUser) return;
-    let results = await realmUser.functions.getAllLandings();
+    let results = await fetchLandings();
     setLandings(results);
-  }, [realmUser]);
+  }, [fetchLandings]);
 
   useEffect(() => {
     getLandings();
@@ -97,10 +99,7 @@ export default function Landings() {
   let [qrCodeModalOpened, setQrCodeModalOpened] = useState(false);
   let [qrCodeDestination, setQrCodeDestination] = useState("");
 
-
   const canvasRef = useRef(null);
-
-
   const showQrCode = async (route) => {
     await setQrCodeModalOpened(true);
     setQrCodeDestination(`landing.mdb.link/${route}`);
@@ -110,7 +109,6 @@ export default function Landings() {
       if (error) console.error(error);
     });
   }
-
 
   const handleNewSection = () => {
     setOtherSections([...otherSections, { title: "New Section", content: "" }])
@@ -164,8 +162,8 @@ export default function Landings() {
   const saveNewLanding = async () => {
     const ctaButton = {label: ctaLabel, linkTo: ctaLink};
     const landing = { title, subtitle, summary, ctaButton, otherSections, additionalResources, identifier };
-    if (modalMode === "add") await realmUser.functions.insertLanding(landing);
-    if (modalMode === "edit") await realmUser.functions.updateLanding(landing);
+    if (modalMode === "add") await insertLanding(landing);
+    if (modalMode === "edit") await updateLanding(identifier, landing);
     await getLandings();
     setInsertModalOpened(false);
     emptyForm();
@@ -211,7 +209,7 @@ export default function Landings() {
     <React.Fragment>
       <H2>List of landing pages</H2>
       <H3>Note: With the new Events landing pages, you shouldn't have the need for these for events.</H3>
-      
+
 
       <section className={topbarStyle}>
         <div>
