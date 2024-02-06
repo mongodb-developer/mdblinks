@@ -19,7 +19,7 @@ steps:
         '--build-arg',
         'REACT_APP_REALM_APP_ID=${_REACT_APP_REALM_APP_ID}',
         '--build-arg',
-        'REACT_APP_API_URL=${_REACT_APP_API_URL}'
+        'REACT_APP_API_URL=${_REACT_APP_API_URL}',
         '--build-arg',
         'REACT_APP_LANDING_URL=${_REACT_APP_LANDING_URL}',
 
