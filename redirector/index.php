@@ -56,6 +56,12 @@ if(!is_array($route) && $route->to) {
     ?>
   </ul>
   <p>If you were trying to reach one of the landing pages, you can check out the list at <a href="http://landing.mdb.link">landing.mdb.link</a></p>
+
+  <?php
+  // Read version number from package.json and display it in the footer
+  $package = json_decode(file_get_contents(__DIR__ . '/package.json'));
+  echo "<footer>Version: " . $package->version . "</footer>";
+  ?>
 </body>
 
 </html>

@@ -22,10 +22,7 @@ steps:
         'REACT_APP_API_URL=${_REACT_APP_API_URL}',
         '--build-arg',
         'REACT_APP_LANDING_URL=${_REACT_APP_LANDING_URL}',
-        '--build-arg',
-        'REACT_APP_ENV=${_ENV}',
-        '--build-arg',
-        'REACT_APP_SHA=${_SHA}'
+        '--build-arg'
       ]
 
   # Push the Docker image to Container Registry

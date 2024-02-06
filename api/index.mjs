@@ -54,10 +54,7 @@ app.get("/health", (req, res) => {
     datetime: new Date().toISOString(),
     version: {
       packageName: process.env.npm_package_name,
-      packageVersion: process.env.npm_package_version,
-      environment: process.env.NODE_ENV,
-      sha: process.env.SHORT_SHA,
-      full: `${process.env.npm_package_name} ${process.env.npm_package_version}:${process.env.NODE_ENV}:${process.env.SHORT_SHA})`
+      packageVersion: process.env.npm_package_version
     }
   };
   res.json(response);
