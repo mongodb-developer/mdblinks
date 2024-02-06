@@ -8,6 +8,7 @@ services:
       - PORT=5050
       - NODE_ENV=development
       - MONGODB_URI=mongodb://mdblink:mdblink@mongodb:27017
+      - SHORT_SHA=dev
     volumes:
       - ./api:/app
     working_dir: /app
@@ -23,6 +24,8 @@ services:
       - NODE_ENV=development
       - REACT_APP_API_URL=http://localhost:5050
       - REACT_APP_LANDING_URL=http://localhost:3002
+      - REACT_APP_SHA=dev
+      - REACT_APP_ENV=development
     volumes:
       - ./admin:/app
     working_dir: /app

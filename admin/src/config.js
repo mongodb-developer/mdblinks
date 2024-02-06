@@ -13,6 +13,10 @@ const settings = {
   },
   API: {
     URL: process.env.REACT_APP_API_URL
+  },
+  VERSION: {
+    ENV: process.env.REACT_APP_ENV,
+    SHA: process.env.REACT_APP_SHA
   }
 }
 

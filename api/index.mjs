@@ -26,7 +26,8 @@ const jwt = expressjwt({
 const jwtExceptWhitelist = function(req, res, next) {
   const whitelist = [
     { url: "/routes/redirect", method: "POST" },
-    { url: /\/landings\/[a-z0-9_-]*/i, method: "GET"}
+    { url: /\/landings\/[a-z0-9_-]*/i, method: "GET"},
+    { url: "/health", method: "GET"}
   ];
   const isWhitelisted = !!whitelist.filter(item => {
     return req.url.match(item.url) && req.method === item.method;
@@ -46,6 +47,21 @@ app.use(jwtExceptWhitelist);
 app.use("/routes", routes);
 app.use("/landings", landings);
 app.use("/dashboard", dashboard);
+
+app.get("/health", (req, res) => {
+  const response = {
+    status: "ok",
+    datetime: new Date().toISOString(),
+    version: {
+      packageName: process.env.npm_package_name,
+      packageVersion: process.env.npm_package_version,
+      environment: process.env.NODE_ENV,
+      sha: process.env.SHORT_SHA,
+      full: `${process.env.npm_package_name} ${process.env.npm_package_version}:${process.env.NODE_ENV}:${process.env.SHORT_SHA})`
+    }
+  };
+  res.json(response);
+});
 
 // Global error handling
 app.use((err, _req, res, next) => {
