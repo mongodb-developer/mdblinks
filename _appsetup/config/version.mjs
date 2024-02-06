@@ -8,6 +8,9 @@ const version = packageJson.version;
 const [major, minor, patch] = version.split(".");
 const newVersion = `${major}.${minor}.${parseInt(patch) + 1}`;
 
+packageJson.version = newVersion;
+await fs.writeFile("package.json", JSON.stringify(packageJson, null, 2));
+
 for (const app of apps) {
   const appPackageJson = await fs.readFile(`${app}/package.json`);
   const appPackage = JSON.parse(appPackageJson);
