@@ -2,8 +2,30 @@
 $apiUrl = $_ENV["API_URL"];
 $url = $apiUrl . "/routes/redirect?route=" . $_SERVER['REQUEST_URI'];
 
+function get_ip() {
+  $ip = '';
+  if (isset($_SERVER['HTTP_CLIENT_IP'])){
+      $ip = $_SERVER['HTTP_CLIENT_IP'];
+  }else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  }else if(isset($_SERVER['HTTP_X_FORWARDED'])){
+      $ip = $_SERVER['HTTP_X_FORWARDED'];
+  }else if(isset($_SERVER['HTTP_FORWARDED_FOR'])){
+      $ip = $_SERVER['HTTP_FORWARDED_FOR'];
+  }else if(isset($_SERVER['HTTP_FORWARDED'])){
+      $ip = $_SERVER['HTTP_FORWARDED'];
+  }else if(isset($_SERVER['REMOTE_ADDR'])){
+      $ip = $_SERVER['REMOTE_ADDR'];
+  }
+  if( empty($ip) || $ip == '0.0.0.0' || substr( $ip, 0, 2 ) == '::' ){
+      $ip = file_get_contents('https://api.ipify.org/');
+      $ip = ($ip===false?$ip:'');
+  }
+  return $ip;
+}
+
 $requestData = [
-  "remoteIPAddress" => $_SERVER['REMOTE_ADDR'],
+  "remoteIPAddress" => get_ip(),
   "webhookUrl" => $_SERVER['REQUEST_URI'],
   "rawQueryString" => $_SERVER['QUERY_STRING'],
   "httpMethod" => $_SERVER['REQUEST_METHOD'],
