@@ -27,6 +27,8 @@ services:
       - REACT_APP_REDIRECTOR_URL=http://localhost:8080
       - REACT_APP_SHA=dev
       - REACT_APP_ENV=development
+      - REACT_APP_CHARTS_URL=https://charts.mongodb.com/charts-mdb-link-tcawx
+      - REACT_APP_CHARTS_DASHBOARD_ID=18d09a88-e4fb-4218-a23e-0b35f7b0f5b4
     volumes:
       - ./admin:/app
     working_dir: /app
