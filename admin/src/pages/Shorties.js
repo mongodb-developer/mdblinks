@@ -459,7 +459,8 @@ export default function Routes () {
         ]}
       >
         {({ datum }) => {
-          if (showMyRoutes && datum.owner !== currentUserId) return;
+          const isOneOfMyRoutes = Array.isArray(datum.owner) ? datum.owner.includes(currentUserId) : (datum.owner === currentUserId);
+          if (showMyRoutes && !isOneOfMyRoutes) return;
           return (
           <Row key={datum._id}>
             <Cell><Link href={`https://mdb.link${datum.route}`} rel="noreferrer" target="_blank">{datum.route}</Link></Cell>
@@ -471,12 +472,12 @@ export default function Routes () {
             <Cell>{datum.title || " "}</Cell>
             <Cell>{datum.isPublic ? "Yes" : "No"}</Cell>
             <Cell>
-              {currentUserId === datum.owner &&
+              {isOneOfMyRoutes &&
               <IconButton darkMode={true} aria-label="Delete" onClick={() => handleDelete(datum._id.toString())}>
                 <Icon glyph="Trash" fill="#aa0000" />
               </IconButton>
               }
-              {currentUserId === datum.owner &&
+              {isOneOfMyRoutes &&
               <IconButton aria-label="Edit" onClick={() => editRoute(datum.route)}>
                 <Icon glyph="Edit" />
               </IconButton>
