@@ -19,7 +19,6 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Stats from "./pages/Stats";
 
-import { RealmProvider } from "./providers/Realm";
 import { ApiProvider } from "./providers/Api";
 
 function PrivateOutlet() {
@@ -30,8 +29,7 @@ function PrivateOutlet() {
 function App() {
   return (
     <Auth0Provider {...settings.AUTH0} >
-      <RealmProvider appId={settings.REALM.appId}>
-        <ApiProvider>
+      <ApiProvider>
         <LeafygreenProvider>
           <Router>
             <Routes>
@@ -49,8 +47,7 @@ function App() {
             </Routes>
           </Router>
         </LeafygreenProvider>
-        </ApiProvider>
-      </RealmProvider>
+      </ApiProvider>
     </Auth0Provider>
   );
 }

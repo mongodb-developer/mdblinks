@@ -8,6 +8,9 @@ const settings = {
   REALM: {
     appId: process.env.REACT_APP_REALM_APP_ID
   },
+  REDIRECTOR: {
+    URL: process.env.REACT_APP_REDIRECTOR_URL
+  },
   LANDING: {
     URL: process.env.REACT_APP_LANDING_URL
   },

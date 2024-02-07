@@ -19,6 +19,7 @@ import { css } from "@leafygreen-ui/emotion";
 import { useAuth0 } from "@auth0/auth0-react";
 import { sources, mediums } from "../utils/utmdata";
 import { useApi } from "../providers/Api";
+import config from "../config";
 
 import * as QRCode from "qrcode";
 
@@ -464,7 +465,7 @@ export default function Routes () {
           if (showMyRoutes && datum.owner !== currentUserId) return;
           return (
           <Row key={datum._id}>
-            <Cell><Link href={`https://mdb.link${datum.route}`} rel="noreferrer" target="_blank">{datum.route}</Link></Cell>
+            <Cell><Link href={`${config.REDIRECTOR.URL}${datum.route}`} rel="noreferrer" target="_blank">{datum.route}</Link></Cell>
             <Cell>
               <InlineDefinition definition={datum.to}>
                 <Link href={datum.to} rel="noreferrer" target="_blank">{`${datum.to.substr(0, TRUNCATE_LENGTH)}${datum.to.length > TRUNCATE_LENGTH ? "..." : ""}`}</Link>

@@ -21,6 +21,8 @@ steps:
         '--build-arg',
         'REACT_APP_API_URL=${_REACT_APP_API_URL}',
         '--build-arg',
+        'REACT_APP_LANDING_URL=${_REACT_APP_REDIRECTOR_URL}',
+        '--build-arg',
         'REACT_APP_LANDING_URL=${_REACT_APP_LANDING_URL}'
       ]
 
