@@ -1,7 +1,19 @@
 # MDBLink Release Notes
 
+## 2.0.5
+February 7, 2024
+
+Small bug fixes as the manual testing list is written.
+
+### New Features
+- Added a list of manual tests that should be performed before merging a PR
+
+### Bug Fixes
+- Dashboard in staging now shows data from the staging database
+- Fixed the route link in the admin UI
+
 ## 2.0.4
-February 8, 2024
+February 7, 2024
 
 In preparation for migration to prod, ownerId for routes will need to be an array to support both Realm user id, and Google user id provided by Auth0.
 
