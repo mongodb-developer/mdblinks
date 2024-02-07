@@ -4,6 +4,7 @@ import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import Button from "@leafygreen-ui/button";
 import { css } from "@leafygreen-ui/emotion";
 import { useApi } from "../providers/Api";
+import config from "../config";
 
 export default function Stats() {
 
@@ -32,10 +33,10 @@ export default function Stats() {
   useEffect(() => {
     const loadChart = async () => {
       const sdk = new ChartsEmbedSDK({
-        baseUrl: "https://charts.mongodb.com/charts-mdb-link-tcawx"
+        baseUrl: config.CHARTS.URL
       });
       const d = await sdk.createDashboard( {
-        dashboardId: "3ad73f20-2280-46e8-b555-0f45d6a8bfaf",
+        dashboardId: config.CHARTS.DASHBOARD_ID,
           height: "700px",
           widthMode: "scale"
       });

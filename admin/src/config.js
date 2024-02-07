@@ -16,6 +16,10 @@ const settings = {
   },
   API: {
     URL: process.env.REACT_APP_API_URL
+  },
+  CHARTS: {
+    URL: process.env.REACT_APP_CHARTS_URL,
+    DASHBOARD_ID: process.env.REACT_APP_CHARTS_DASHBOARD_ID
   }
 }
 
