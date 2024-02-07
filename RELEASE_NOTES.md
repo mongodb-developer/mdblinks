@@ -1,5 +1,13 @@
 # MDBLink Release Notes
 
+## 2.0.4
+February 8, 2024
+
+In preparation for migration to prod, ownerId for routes will need to be an array to support both Realm user id, and Google user id provided by Auth0.
+
+### New Features
+- Added support for multiple ownerIds for routes in the admin UI
+
 ## 2.0.3
 February 7, 2024
 
