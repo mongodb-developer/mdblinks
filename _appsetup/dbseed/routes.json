@@ -1,0 +1,19 @@
+[
+  {
+    "_id": {
+      "$oid": "6304ba12a7b4348d21ecd75a"
+    },
+    "route": "/cheers",
+    "to": "https://www.mongodb.com/developer/events/orlando-code-camp/?utm_campaign=devrel&utm_source=event&utm_medium=cta&utm_content=occ&utm_term=joel.lord",
+    "isPublic": true,
+    "owner": "63063470602a04b18c013028",
+    "title": "Cheers",
+    "utms": {
+      "utm_campaign": "devrel",
+      "utm_source": "event",
+      "utm_medium": "cta",
+      "utm_content": "occ",
+      "utm_term": "joel.lord"
+    }
+  }
+]

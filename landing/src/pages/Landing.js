@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@leafygreen-ui/emotion";
 import { MongoDBLogo } from "@leafygreen-ui/logo";
-import { H1, H2, H3, Body } from "@leafygreen-ui/typography";
+import { H1, H2, H3, Body, Disclaimer } from "@leafygreen-ui/typography";
 import Card from '@leafygreen-ui/card';
 import Button from "@leafygreen-ui/button";
 import Icon from '@leafygreen-ui/icon';
-
+import config from "../config";
 import ReactMarkdown from 'react-markdown'
 import { useParams } from "react-router-dom";
 import AliceCarousel from 'react-alice-carousel';
+import packageJson from "../../package.json";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import '../carousel.css';
-
 
 let topBannerStyle = css`
   position: sticky;
@@ -162,9 +162,9 @@ export default function Landing() {
 
   useEffect(() => {
     const getLanding = async () => {
-      let landing = await fetch(`https://data.mongodb-api.com/app/landing-mgxlk/endpoint/landing?identifier=${params.identifier}`).then(resp => resp.json());
+      const url = `${config.API.URL}/landings/${params.identifier}`;
+      let landing = await fetch(url).then(resp => resp.json());
       setLandingPageData(landing);
-      debugger;
       if (landing.redirectTo) window.location.href = landing.redirectTo;
     }
     if (window.landingData) {
@@ -290,6 +290,7 @@ export default function Landing() {
       </section>
       <section className={footerStyle}>
         <MongoDBLogo height={20} />
+        <Disclaimer>mdblinks {packageJson.name} version {packageJson.version}</Disclaimer>
       </section>
     </React.Fragment>
   )

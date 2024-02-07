@@ -1,0 +1,25 @@
+[
+  {
+    "_id": {
+      "$oid": "630760b80c78ad328b1211e5"
+    },
+    "title": "Title",
+    "subtitle": "Subtitle",
+    "summary": "This is the small summary of the landing page that will show up in the jumbotron, right under the title and subtitle. This text can expand on multiple lines.",
+    "ctaButton": {
+      "label": "Try MongoDB now",
+      "linkTo": "http://mongodb.com"
+    },
+    "otherSections": [
+      {
+        "title": "Find out more",
+        "text": "Learn more about this stuff"
+      },
+      {
+        "title": "Code and Slides",
+        "text": "Longer block that **uses** markdown and other _stuff_ for a [richer](http://www.mongodb.com) experience"
+      }
+    ],
+    "identifier": "test"
+  }
+]

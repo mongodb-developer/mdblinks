@@ -3,8 +3,11 @@ import { Fragment, useEffect, useState } from "react";
 import { Combobox, ComboboxOption } from "@leafygreen-ui/combobox";
 import Button from "@leafygreen-ui/button";
 import { css } from "@leafygreen-ui/emotion";
+import { useApi } from "../providers/Api";
 
 export default function Stats() {
+
+  const api = useApi();
 
   let [dashboard, setDashboard] = useState(null);
   let [filters, setFilters] = useState({utm_term: [], utm_medium: [], utm_source: [], utm_content: []});
@@ -40,13 +43,12 @@ export default function Stats() {
       d.render(document.getElementById("dashboard"));
     }
     const loadFilters = async () => {
-      const response = await fetch('https://data.mongodb-api.com/app/admin-toxzg/endpoint/getFilters');
-      const data = await response.json();
+      const data = await api.getDashboardFilters();
       setFilters(data);
     }
     loadChart();
     loadFilters();
-  }, []);
+  }, [api]);
 
   const handleNewFilter = () => {
     let filters = [];
