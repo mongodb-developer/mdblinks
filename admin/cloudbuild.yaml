@@ -21,9 +21,13 @@ steps:
         '--build-arg',
         'REACT_APP_API_URL=${_REACT_APP_API_URL}',
         '--build-arg',
-        'REACT_APP_LANDING_URL=${_REACT_APP_REDIRECTOR_URL}',
+        'REACT_APP_REDIRECTOR_URL=${_REACT_APP_REDIRECTOR_URL}',
         '--build-arg',
-        'REACT_APP_LANDING_URL=${_REACT_APP_LANDING_URL}'
+        'REACT_APP_LANDING_URL=${_REACT_APP_LANDING_URL}',
+        '--build-arg',
+        'REACT_APP_CHARTS_URL=${_REACT_APP_CHARTS_URL}',
+        '--build-arg',
+        'REACT_APP_CHARTS_DASHBOARD_ID=${_REACT_APP_CHARTS_DASHBOARD_ID}',
       ]
 
   # Push the Docker image to Container Registry
