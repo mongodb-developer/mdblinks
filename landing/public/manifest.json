@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MongoDB Landing Pages",
+  "name": "Landing pages for MongoDB resources",
   "icons": [
     {
       "src": "favicon.ico",

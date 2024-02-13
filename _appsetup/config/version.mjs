@@ -17,3 +17,6 @@ for (const app of apps) {
   appPackage.version = newVersion;
   await fs.writeFile(`${app}/package.json`, JSON.stringify(appPackage, null, 2));
 }
+
+console.log(`Bumped version from ${version} to ${newVersion}`);
+console.log(`Don't forget to update the RELEASE_NOTES.md file!`)

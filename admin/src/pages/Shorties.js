@@ -26,7 +26,8 @@ import * as QRCode from "qrcode";
 const TRUNCATE_LENGTH = 50;
 const ERROR_MESSAGES = {
   START_WITH_SLASH: "Route must start with a forward slash (/)",
-  ALREADY_EXISTS: "Route is already used for another URL"
+  ALREADY_EXISTS: "Route is already used for another URL",
+  EMPTY: "Route cannot be empty"
 }
 
 export default function Routes () {
@@ -284,6 +285,9 @@ export default function Routes () {
             } else if (allRoutes.includes(e.target.value)) {
               setRouteValid(false);
               setErrorMessage(ERROR_MESSAGES.ALREADY_EXISTS);
+            } else if (e.target.value === "" || e.target.value === "/") {
+              setRouteValid(false);
+              setErrorMessage(ERROR_MESSAGES.EMPTY);
             } else {
               setRouteValid(true);
             }
