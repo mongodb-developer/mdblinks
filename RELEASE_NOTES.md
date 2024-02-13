@@ -12,6 +12,7 @@ Small bug fixes and clean up.
 - Removed unused files
 - Changes the index.html pages to remove references to create-react-app
 - Fixes issue #13 to prevent empty routes from being created
+- Fixes issue #21 preventing the admin UI from deleting or editing routes
 
 ## 2.0.5
 February 7, 2024

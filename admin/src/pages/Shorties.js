@@ -232,6 +232,22 @@ export default function Routes () {
 
   }, [getData, getLandings]);
 
+  useEffect(() => {
+    if (route.substring(0,1) !== "/") {
+      setRouteValid(false);
+      setErrorMessage(ERROR_MESSAGES.START_WITH_SLASH);
+    } else if (modalMode == "add" && allRoutes.includes(route)) {
+      setRouteValid(false);
+      setErrorMessage(ERROR_MESSAGES.ALREADY_EXISTS);
+    } else if (route === "" || route === "/") {
+      setRouteValid(false);
+      setErrorMessage(ERROR_MESSAGES.EMPTY);
+    } else {
+      setRouteValid(true);
+      setErrorMessage("");
+    }
+  }, [route])
+
   return  (
     <React.Fragment>
       <H2>List of Short URLs</H2>
@@ -279,18 +295,6 @@ export default function Routes () {
           placeholder="/route"
           onChange={e => {
             setRoute(e.target.value);
-            if (e.target.value.substring(0,1) !== "/") {
-              setRouteValid(false);
-              setErrorMessage(ERROR_MESSAGES.START_WITH_SLASH);
-            } else if (allRoutes.includes(e.target.value)) {
-              setRouteValid(false);
-              setErrorMessage(ERROR_MESSAGES.ALREADY_EXISTS);
-            } else if (e.target.value === "" || e.target.value === "/") {
-              setRouteValid(false);
-              setErrorMessage(ERROR_MESSAGES.EMPTY);
-            } else {
-              setRouteValid(true);
-            }
           }}
           errorMessage={errorMessage}
           state={routeValid ? "valid" : "error"}

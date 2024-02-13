@@ -32,7 +32,8 @@ function ApiProvider(props) {
   const deleteRoute = async (id) => {
     const url = `${BASE_URL}/routes/${id}`;
     const result = await fetch(url, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: await generateHeaders()
     }).then(resp => resp.json());
     return result;
   }
