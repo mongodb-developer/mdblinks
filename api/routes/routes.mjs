@@ -41,8 +41,17 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const results = await routesController.createRoute(req.body, req.auth.sub);
-  res.send(results).status(201);
+  try {
+    const results = await routesController.createRoute(req.body, req.auth.sub);
+    res.send(results).status(201);
+  } catch (e) {
+    console.error(e);
+    const error = {
+      error: e.toString(),
+      status: "failed"
+    };
+    return res.status(500).send(error);
+  }
 });
 
 router.put("/:id", async (req, res) => {

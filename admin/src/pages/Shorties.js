@@ -26,7 +26,8 @@ import * as QRCode from "qrcode";
 const TRUNCATE_LENGTH = 50;
 const ERROR_MESSAGES = {
   START_WITH_SLASH: "Route must start with a forward slash (/)",
-  ALREADY_EXISTS: "Route is already used for another URL"
+  ALREADY_EXISTS: "Route is already used for another URL",
+  EMPTY: "Route cannot be empty"
 }
 
 export default function Routes () {
@@ -37,7 +38,7 @@ export default function Routes () {
   let [chartRoute, setChartRoute] = useState("");
   let [routeStats, setRouteStats] = useState({});
   let [route, setRoute] = useState("");
-  let [routeValid, setRouteValid] = useState(true);
+  let [routeValid, setRouteValid] = useState(false);
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [to, setTo] = useState("");
@@ -46,7 +47,7 @@ export default function Routes () {
   let [modalMode, setModalMode] = useState("add");
   let [landings, setLandings] = useState([]);
   let [showMyRoutes, setShowMyRoutes] = useState(true);
-  let [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES.START_WITH_SLASH);
+  let [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES.EMPTY);
   let [allRoutes, setAllRoutes] = useState([]);
   let [routeId, setRouteId] = useState(null);
 
@@ -231,6 +232,22 @@ export default function Routes () {
 
   }, [getData, getLandings]);
 
+  useEffect(() => {
+    if (route.substring(0,1) !== "/") {
+      setRouteValid(false);
+      setErrorMessage(ERROR_MESSAGES.START_WITH_SLASH);
+    } else if (modalMode == "add" && allRoutes.includes(route)) {
+      setRouteValid(false);
+      setErrorMessage(ERROR_MESSAGES.ALREADY_EXISTS);
+    } else if (route === "" || route === "/") {
+      setRouteValid(false);
+      setErrorMessage(ERROR_MESSAGES.EMPTY);
+    } else {
+      setRouteValid(true);
+      setErrorMessage("");
+    }
+  }, [route])
+
   return  (
     <React.Fragment>
       <H2>List of Short URLs</H2>
@@ -278,15 +295,6 @@ export default function Routes () {
           placeholder="/route"
           onChange={e => {
             setRoute(e.target.value);
-            if (e.target.value.substring(0,1) !== "/") {
-              setRouteValid(false);
-              setErrorMessage(ERROR_MESSAGES.START_WITH_SLASH);
-            } else if (allRoutes.includes(e.target.value)) {
-              setRouteValid(false);
-              setErrorMessage(ERROR_MESSAGES.ALREADY_EXISTS);
-            } else {
-              setRouteValid(true);
-            }
           }}
           errorMessage={errorMessage}
           state={routeValid ? "valid" : "error"}
