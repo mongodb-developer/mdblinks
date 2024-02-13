@@ -38,7 +38,7 @@ export default function Routes () {
   let [chartRoute, setChartRoute] = useState("");
   let [routeStats, setRouteStats] = useState({});
   let [route, setRoute] = useState("");
-  let [routeValid, setRouteValid] = useState(true);
+  let [routeValid, setRouteValid] = useState(false);
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [to, setTo] = useState("");
@@ -47,7 +47,7 @@ export default function Routes () {
   let [modalMode, setModalMode] = useState("add");
   let [landings, setLandings] = useState([]);
   let [showMyRoutes, setShowMyRoutes] = useState(true);
-  let [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES.START_WITH_SLASH);
+  let [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES.EMPTY);
   let [allRoutes, setAllRoutes] = useState([]);
   let [routeId, setRouteId] = useState(null);
 
