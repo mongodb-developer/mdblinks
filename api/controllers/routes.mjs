@@ -93,6 +93,9 @@ export default class Routes {
   }
 
   async createRoute(route, userId) {
+    if (route.route === "" || route.route === "/") {
+      throw new Error("Route cannot be empty or /");
+    }
     let collection = await db.collection("routes");
     route.utms = this.extractUtmsFromUrl(route.to);
     route.owner = userId;
