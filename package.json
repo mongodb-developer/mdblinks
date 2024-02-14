@@ -1,6 +1,6 @@
 {
   "name": "mdblinks",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Mdblinks is a simple URL shortener that uses a MongoDB database to store the short URLs. You can use it to create short URLs that can be easily shared, tweeted, or emailed to friends.",
   "main": "index.js",
   "scripts": {
