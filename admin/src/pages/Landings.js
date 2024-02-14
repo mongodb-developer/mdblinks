@@ -317,18 +317,19 @@ export default function Landings() {
         ]}
       >
         {({ datum }) => {
-          if (showMyLandings && currentUserId !== datum.owner) { return null; }
+          const isOneOfMyRoutes = Array.isArray(datum.owner) ? datum.owner.includes(currentUserId) : (datum.owner === currentUserId);
+          if (showMyLandings && !isOneOfMyRoutes) { return null; }
           else { return (
           <Row key={datum._id}>
             <Cell>{datum.identifier}</Cell>
             <Cell>{datum.title || " "}</Cell>
             <Cell>
-              {currentUserId === datum.owner &&
+              {isOneOfMyRoutes &&
               <IconButton darkMode={true} aria-label="Delete">
                 <Icon glyph="Trash" fill="#aa0000" />
               </IconButton>
               }
-              {currentUserId === datum.owner &&
+              {isOneOfMyRoutes &&
               <IconButton darkMode={false} aria-label="Edit" onClick={() => editLanding(datum.identifier)}>
                 <Icon glyph="Edit" fill="#023430" />
               </IconButton>

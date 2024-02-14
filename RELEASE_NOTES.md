@@ -1,5 +1,13 @@
 # MDBLink Release Notes
 
+## 2.0.7
+February 14, 2024
+
+Fixed a bug in the admin UI for landing pages.
+
+### Bug Fixes
+- Fixed a bug in the admin UI for landing pages where the user could not see his own landing pages. The owner id in the prod database was also updated to match both the realm and Auth0 id.
+
 ## 2.0.6
 February 13, 2024
 
