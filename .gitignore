@@ -3,3 +3,4 @@ node_modules
 .env.production
 build
 _appsetup/scripts
+.DS_Store

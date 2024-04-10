@@ -1,6 +1,6 @@
 {
   "name": "landing",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.10.2",
