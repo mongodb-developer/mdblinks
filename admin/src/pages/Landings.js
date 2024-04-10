@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { H2, H3, Label, Description } from "@leafygreen-ui/typography";
 import Toggle from "@leafygreen-ui/toggle";
 import Button from "@leafygreen-ui/button";
@@ -15,7 +15,8 @@ import Modal from "@leafygreen-ui/modal";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useApi } from "../providers/Api";
 
-import * as QRCode from "qrcode";
+import { QRCode } from "react-qrcode-logo";
+const QRCODE_SIZE = 480;
 
 let topbarStyle = css`
   display: grid;
@@ -99,15 +100,9 @@ export default function Landings() {
   let [qrCodeModalOpened, setQrCodeModalOpened] = useState(false);
   let [qrCodeDestination, setQrCodeDestination] = useState("");
 
-  const canvasRef = useRef(null);
   const showQrCode = async (route) => {
     await setQrCodeModalOpened(true);
     setQrCodeDestination(`landing.mdb.link/${route}`);
-    let destinationUrl = `https://landing.mdb.link/${route}`;
-    let canvas = canvasRef.current;
-    QRCode.toCanvas(canvas, destinationUrl, { width: 480, color: { dark: "#023430" } }, function (error) {
-      if (error) console.error(error);
-    });
   }
 
   const handleNewSection = () => {
@@ -305,7 +300,23 @@ export default function Landings() {
 
       <Modal open={qrCodeModalOpened} setOpen={setQrCodeModalOpened} className={qrCodeModalStyle}>
         <H3>QR Code for {qrCodeDestination}</H3>
-        <canvas ref={canvasRef} width="300"></canvas>
+        <QRCode
+            value={qrCodeDestination}
+            size={QRCODE_SIZE}
+            ecLevel={"Q"}
+            quietZone={20}
+            bgColor={"#FFFFFF"}
+            fgColor={"#023430"}
+            logoImage="/logo-square-dark-green.png"
+            logoWidth={QRCODE_SIZE * 0.2}
+            logoOpacity={0.8}
+            logoPadding={1}
+            logoPaddingStyle={"square"}
+            removeQrCodeBehindLogo={true}
+            qrStyle={"square"}
+            eyeRadius={undefined}
+            eyeColor={"#023430"}
+          />
       </Modal>
 
       <Table
