@@ -1,5 +1,14 @@
 # MDBLink Release Notes
 
+## 2.0.8
+April 10, 2024
+
+Changed the QR Code to now also display the logomark. It also has the possibility to render a high resolution version of the QR Code for printing.
+
+## Improvements
+- Implements issue #26 to display the logomark in the QR Code
+
+
 ## 2.0.7
 February 14, 2024
 

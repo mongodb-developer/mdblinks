@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useRef} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import { H2, H3, Body, Link, Label, Description, Subtitle } from "@leafygreen-ui/typography";
 import { Table, TableHeader, Row, Cell } from '@leafygreen-ui/table';
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
@@ -21,7 +21,8 @@ import { sources, mediums } from "../utils/utmdata";
 import { useApi } from "../providers/Api";
 import config from "../config";
 
-import * as QRCode from "qrcode";
+import { QRCode } from 'react-qrcode-logo';
+const QRCODE_SIZE = 480;
 
 const TRUNCATE_LENGTH = 50;
 const ERROR_MESSAGES = {
@@ -34,6 +35,7 @@ export default function Routes () {
   let [insertModalOpened, setInsertModalOpened] = useState(false);
   let [qrCodeModalOpened, setQrCodeModalOpened] = useState(false);
   let [qrCodeDestination, setQrCodeDestination] = useState("");
+  let [qrCodeShowHighRes, setQrCodeShowHighRes] = useState(false);
   let [chartModalOpened, setChartModalOpened] = useState(false);
   let [chartRoute, setChartRoute] = useState("");
   let [routeStats, setRouteStats] = useState({});
@@ -89,6 +91,13 @@ export default function Routes () {
 
   const qrCodeModalStyle = css`
     text-align: center;
+    max-height: 100vh;
+  `
+
+  const qrCodeWrapperStyle = css`
+    overflow: scroll;
+    max-height: 560px;
+    max-width: 560px;
   `
 
   const chartModalStyle = css`
@@ -122,8 +131,6 @@ export default function Routes () {
     display: none;
   `
 
-  const canvasRef = useRef(null);
-
   const getData = useCallback(async () => {
     let results = await fetchRoutes();
     setData(results);
@@ -153,11 +160,6 @@ export default function Routes () {
   const showQrCode = async (route) => {
     await setQrCodeModalOpened(true);
     setQrCodeDestination(`mdb.link${route}`);
-    let destinationUrl = `https://mdb.link${route}`;
-    let canvas = canvasRef.current;
-    QRCode.toCanvas(canvas, destinationUrl, {width: 480, color: {dark: "#023430"}}, function (error) {
-      if (error) console.error(error);
-    });
   }
 
   const showChartModal = async (route) => {
@@ -236,7 +238,7 @@ export default function Routes () {
     if (route.substring(0,1) !== "/") {
       setRouteValid(false);
       setErrorMessage(ERROR_MESSAGES.START_WITH_SLASH);
-    } else if (modalMode == "add" && allRoutes.includes(route)) {
+    } else if (modalMode === "add" && allRoutes.includes(route)) {
       setRouteValid(false);
       setErrorMessage(ERROR_MESSAGES.ALREADY_EXISTS);
     } else if (route === "" || route === "/") {
@@ -437,7 +439,34 @@ export default function Routes () {
 
       <Modal open={qrCodeModalOpened} setOpen={setQrCodeModalOpened} className={qrCodeModalStyle}>
         <H3>QR Code for {qrCodeDestination}</H3>
-        <canvas ref={canvasRef} width="300"></canvas>
+        <br/>
+        <Button
+          size="xsmall"
+          variant="primaryOutline"
+          onClick={() => setQrCodeShowHighRes(!qrCodeShowHighRes)}
+        >
+          Show {qrCodeShowHighRes ? "Low" : "High"} Res
+        </Button>
+        <br/>
+        <div className={qrCodeWrapperStyle}>
+          <QRCode
+            value={qrCodeDestination}
+            size={qrCodeShowHighRes ? QRCODE_SIZE * 10 : QRCODE_SIZE}
+            ecLevel={"Q"}
+            quietZone={20}
+            bgColor={"#FFFFFF"}
+            fgColor={"#023430"}
+            logoImage="/logo-square-dark-green.png"
+            logoWidth={(qrCodeShowHighRes ? QRCODE_SIZE * 10 : QRCODE_SIZE) * 0.2}
+            logoOpacity={0.8}
+            logoPadding={1}
+            logoPaddingStyle={"square"}
+            removeQrCodeBehindLogo={true}
+            qrStyle={"square"}
+            eyeRadius={undefined}
+            eyeColor={"#023430"}
+          />
+        </div>
       </Modal>
 
       <Modal open={chartModalOpened} setOpen={setChartModalOpened} className={chartModalStyle}>
