@@ -21,7 +21,7 @@ import { sources, mediums } from "../utils/utmdata";
 import { useApi } from "../providers/Api";
 import config from "../config";
 
-import { QRCode } from 'react-qrcode-logo';
+import { QRCode } from '@joellord/react-qrcode-logo';
 const QRCODE_SIZE = 480;
 
 const TRUNCATE_LENGTH = 50;
@@ -462,7 +462,7 @@ export default function Routes () {
             logoPadding={1}
             logoPaddingStyle={"square"}
             removeQrCodeBehindLogo={true}
-            qrStyle={"square"}
+            qrStyle={"fluid"}
             eyeRadius={undefined}
             eyeColor={"#023430"}
           />

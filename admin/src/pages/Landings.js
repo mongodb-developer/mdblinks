@@ -15,7 +15,7 @@ import Modal from "@leafygreen-ui/modal";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useApi } from "../providers/Api";
 
-import { QRCode } from "react-qrcode-logo";
+import { QRCode } from "@joellord/react-qrcode-logo";
 const QRCODE_SIZE = 480;
 
 let topbarStyle = css`
