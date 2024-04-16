@@ -21,8 +21,8 @@ import { sources, mediums } from "../utils/utmdata";
 import { useApi } from "../providers/Api";
 import config from "../config";
 
-import { QRCode } from '@joellord/react-qrcode-logo';
-const QRCODE_SIZE = 480;
+import { QRCode } from 'react-qrcode-logo';
+const QRCODE_SIZE = 450;
 
 const TRUNCATE_LENGTH = 50;
 const ERROR_MESSAGES = {
