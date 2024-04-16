@@ -1,5 +1,10 @@
 # MDBLink Release Notes
 
+## 2.0.9
+April 16, 2024
+
+Updated the QR Code library using the fluid style.
+
 ## 2.0.8
 April 10, 2024
 

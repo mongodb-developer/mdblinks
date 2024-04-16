@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.10.2",
@@ -61,7 +61,7 @@
     "@types/react-dom": "^17.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-qrcode-logo": "^2.9.0",
+    "react-qrcode-logo": "^2.10.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
     "realm-web": "^1.7.1",
