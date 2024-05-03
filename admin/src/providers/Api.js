@@ -7,6 +7,7 @@ const BASE_URL = config.API.URL;
 function ApiProvider(props) {
   let { getAccessTokenSilently } = useAuth0();
   let [jwt, setJwt] = useState(null);
+  let [profile, setProfile] = useState({});
 
   useEffect(() => {
     async function init() {
@@ -17,6 +18,14 @@ function ApiProvider(props) {
     }
     init();
   }, [getAccessTokenSilently]);
+
+  useEffect(() => {
+    async function loadUser() {
+      let profile = await getUserData();
+      setProfile(profile);
+    }
+    loadUser();
+  }, []);
 
   const generateHeaders = async () => {
     let token = jwt ? jwt : await getAccessTokenSilently();
@@ -114,8 +123,47 @@ function ApiProvider(props) {
     return filters;
   }
 
+  const getUserData = async (props) => {
+    if (profile._id && !props?.force) {
+      return profile;
+    }
+    const url = `${BASE_URL}/users/me`;
+    const user = await fetch(url, {
+      method: "GET",
+      headers: await generateHeaders()
+    }).then(resp => resp.json());
+    setProfile(user);
+    return user;
+  }
+
+  const saveUserData = async (data) => {
+    const url = `${BASE_URL}/users/me`;
+    const newProfile = {
+      _id: data._id,
+      name: data.name,
+      team: data.team
+    };
+    const user = await fetch(url, {
+      method: "PUT",
+      headers: await generateHeaders(),
+      body: JSON.stringify(newProfile)
+    }).then(resp => resp.json());
+    setProfile(await getUserData({force: true}));
+    return user;
+  }
+
+  const getTeams = async () => {
+    const url = `${BASE_URL}/users/teams`;
+    const teams = await fetch(url, {
+      method: "GET",
+      headers: await generateHeaders()
+    }).then(resp => resp.json());
+    return teams;
+  }
+
   let providerState = {
     jwt,
+    profile,
     deleteRoute,
     fetchLandings,
     fetchRoutes,
@@ -124,7 +172,10 @@ function ApiProvider(props) {
     insertRoute,
     insertLanding,
     updateRoute,
-    updateLanding
+    updateLanding,
+    getUserData,
+    saveUserData,
+    getTeams
   }
 
   return (

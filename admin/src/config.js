@@ -2,7 +2,7 @@ const settings = {
   AUTH0: {
     domain: process.env.REACT_APP_AUTH0_DOMAIN || "",
     clientId: process.env.REACT_APP_AUTH0_CLIENTID || "",
-    redirectUri: `${window.location.origin}`,
+    redirectUri: `${window.location.origin}/callback`,
     audience: process.env.REACT_APP_AUTH0_AUDIENCE || ""
   },
   REALM: {

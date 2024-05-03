@@ -16,8 +16,8 @@ import { Combobox, ComboboxOption } from '@leafygreen-ui/combobox';
 import { spacing } from '@leafygreen-ui/tokens';
 import InlineDefinition from "@leafygreen-ui/inline-definition";
 import { css } from "@leafygreen-ui/emotion";
+import MultiBox from "../components/MultiBox";
 import { useAuth0 } from "@auth0/auth0-react";
-import { sources, mediums } from "../utils/utmdata";
 import { useApi } from "../providers/Api";
 import config from "../config";
 
@@ -52,11 +52,16 @@ export default function Routes () {
   let [errorMessage, setErrorMessage] = useState(ERROR_MESSAGES.EMPTY);
   let [allRoutes, setAllRoutes] = useState([]);
   let [routeId, setRouteId] = useState(null);
+  let [utmDataOptions, setUtmDataOptions] = useState(null);
 
   const { user } = useAuth0();
   let currentUserId = user.sub;
 
-  const { fetchRoutes, fetchLandings, getRouteStats, deleteRoute, insertRoute, updateRoute } = useApi();
+  const { fetchRoutes, fetchLandings, getRouteStats, deleteRoute, insertRoute, updateRoute, profile } = useApi();
+
+  useEffect(() => {
+    setUtmDataOptions(profile.utms);
+  }, [profile]);
 
   let [url, setURL] = useState("");
   let [campaign, setCampaign] = useState("devrel");
@@ -326,40 +331,41 @@ export default function Routes () {
                   state={urlValid ? "valid" : "error"}
                   value={url}
                 /><br/>
-                <TextInput
+                <MultiBox
                   label="Campaign"
                   description="Should always be set to `devrel`"
                   onChange={e => setCampaign(e.target.value)}
                   disabled={true}
                   value={campaign}
+                  possibleValues={utmDataOptions?.campaigns}
                 /><br/>
-                <Combobox
+                <MultiBox
                   label="Source"
                   description="Focus area this link tracks to"
                   onChange={value => setSource(value)}
                   value={source}
-                >
-                  {sources.map(s => <ComboboxOption {...s} />)}
-                </Combobox><br/>
-                <Combobox
+                  possibleValues={utmDataOptions?.sources}
+                /><br/>
+                <MultiBox
                   label="Medium"
                   description="How was the link shared?"
                   onChange={value => setMedium(value)}
                   value={medium}
-                >
-                  {mediums.map(s => <ComboboxOption {...s} />)}
-                </Combobox><br/>
-                <TextInput
+                  possibleValues={utmDataOptions?.mediums}
+                /><br/>
+                <MultiBox
                   label="Content"
                   description="More details to the medium (episode number, video title, conference name)"
                   onChange={e => setContent(e.target.value)}
                   value={content}
+                  possibleValues={utmDataOptions?.contents}
                 /><br/>
-                <TextInput
+                <MultiBox
                   label="Term"
                   description="Used to identify who used or created this link"
                   onChange={e => setTerm(e.target.value)}
                   value={term}
+                  possibleValues={utmDataOptions?.terms}
                 /><br/>
                 <Copyable className={copyableInputStyle} label="Your Link" description="Use this link to start tracking your impact.">
                   {linkWithUTM}
@@ -381,7 +387,7 @@ export default function Routes () {
                 >
                   {landings.map(l => {
                     return(
-                      <ComboboxOption value={l.identifier} displayName={`${l.identifier} - ${l.title}`} />
+                      <ComboboxOption key={l.identifier} value={l.identifier} displayName={`${l.identifier} - ${l.title}`} />
                     )
                   })}
                 </Combobox>

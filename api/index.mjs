@@ -4,6 +4,7 @@ import "express-async-errors";
 import routes from "./routes/routes.mjs";
 import landings from "./routes/landings.mjs";
 import dashboard from "./routes/dashboard.mjs";
+import users from "./routes/users.mjs";
 import { expressjwt } from "express-jwt";
 import { expressJwtSecret } from "jwks-rsa";
 
@@ -47,6 +48,7 @@ app.use(jwtExceptWhitelist);
 app.use("/routes", routes);
 app.use("/landings", landings);
 app.use("/dashboard", dashboard);
+app.use("/users", users);
 
 app.get("/health", (req, res) => {
   const response = {
