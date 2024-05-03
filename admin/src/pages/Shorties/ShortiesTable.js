@@ -9,18 +9,16 @@ const TRUNCATE_LENGTH = 50;
 
 export default function ShortiesTable(props) {
   const { data, currentUserId, showMyRoutes, editRoute, handleDelete, showQrCode, showChartModal } = props;
-
   return (
     <Table
       data={data}
       columns={[
         <TableHeader label="Short URL"  sortBy={datum => datum.route}/>,
         <TableHeader label="Destination"  sortBy={datum => datum.to}/>,
-        <TableHeader label="Title"  sortBy={datum => datum.title}/>,
-        <TableHeader label="Public" />,
         <TableHeader label="Actions" />
       ]}
     >
+
       {({ datum }) => {
         const isOneOfMyRoutes = Array.isArray(datum.owner) ? datum.owner.includes(currentUserId) : (datum.owner === currentUserId);
         if (showMyRoutes && !isOneOfMyRoutes) return;
@@ -32,8 +30,6 @@ export default function ShortiesTable(props) {
               <Link href={datum.to} rel="noreferrer" target="_blank">{`${datum.to.substr(0, TRUNCATE_LENGTH)}${datum.to.length > TRUNCATE_LENGTH ? "..." : ""}`}</Link>
             </InlineDefinition>
           </Cell>
-          <Cell>{datum.title || " "}</Cell>
-          <Cell>{datum.isPublic ? "Yes" : "No"}</Cell>
           <Cell>
             {isOneOfMyRoutes &&
             <IconButton darkMode={true} aria-label="Delete" onClick={() => handleDelete(datum._id.toString())}>

@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.10.2",
@@ -26,6 +26,7 @@
     "@leafygreen-ui/interaction-ring": "^7.0.2",
     "@leafygreen-ui/leafygreen-provider": "^3.1.1",
     "@leafygreen-ui/lib": "^10.3.0",
+    "@leafygreen-ui/loading-indicator": "^2.0.12",
     "@leafygreen-ui/logo": "^8.0.1",
     "@leafygreen-ui/marketing-modal": "^4.0.5",
     "@leafygreen-ui/menu": "^20.0.1",
@@ -51,9 +52,9 @@
     "@leafygreen-ui/theme": "^3.0.1",
     "@leafygreen-ui/toast": "^5.0.1",
     "@leafygreen-ui/toggle": "^10.0.6",
-    "@leafygreen-ui/tokens": "^2.0.1",
+    "@leafygreen-ui/tokens": "^2.6.0",
     "@leafygreen-ui/tooltip": "^9.1.6",
-    "@leafygreen-ui/typography": "^16.1.0",
+    "@leafygreen-ui/typography": "^19.1.0",
     "@mongodb-js/charts-embed-dom": "^3.2.1",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.47",

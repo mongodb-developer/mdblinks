@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useCallback} from "react";
-import { H2, Label, Description, Subtitle } from "@leafygreen-ui/typography";
+import { H2, Label, Description } from "@leafygreen-ui/typography";
 import Toggle from "@leafygreen-ui/toggle";
 import Button from "@leafygreen-ui/button";
 import Icon from '@leafygreen-ui/icon';
 import { css } from "@leafygreen-ui/emotion";
+import { Spinner } from "@leafygreen-ui/loading-indicator";
 import ShortiesTable from "./ShortiesTable";
 import ChartModal from "./ChartModal";
 import QrCodeModal from "./QrCodeModal";
@@ -21,6 +22,7 @@ export default function Routes () {
   let [modalMode, setModalMode] = useState("add");
   let [showMyRoutes, setShowMyRoutes] = useState(true);
   let [routeToEdit, setRouteToEdit] = useState({});
+  let [doneLoading, setDoneLoading] = useState(false);
 
   const { user } = useAuth0();
   let currentUserId = user.sub;
@@ -44,8 +46,10 @@ export default function Routes () {
   `;
 
   const getData = useCallback(async () => {
+    setDoneLoading(false);
     let results = await fetchRoutes();
     setData(results);
+    setDoneLoading(true);
   }, [fetchRoutes]);
 
   const showQrCode = async (route) => {
@@ -70,8 +74,13 @@ export default function Routes () {
   }
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+    const loadRoutes = async () => {
+      let routes = await fetchRoutes();
+      setData(routes);
+      setDoneLoading(true);
+    }
+    loadRoutes();
+  }, []);
 
   return  (
     <React.Fragment>
@@ -128,17 +137,25 @@ export default function Routes () {
         chartRoute={chartRoute}
       />
 
-      <ShortiesTable
-        data={data}
-        currentUserId={currentUserId}
-        showMyRoutes={showMyRoutes}
-        getData={getData}
-        editRoute={handleEditRoute}
-        allRoutes={data}
-        handleDelete={handleDelete}
-        showQrCode={showQrCode}
-        showChartModal={showChartModal}
-      />
+      {doneLoading &&
+        <ShortiesTable
+          data={data}
+          currentUserId={currentUserId}
+          showMyRoutes={showMyRoutes}
+          getData={getData}
+          editRoute={handleEditRoute}
+          allRoutes={data}
+          handleDelete={handleDelete}
+          showQrCode={showQrCode}
+          showChartModal={showChartModal}
+        />
+      }
+      {!doneLoading &&
+        <Spinner
+          description="Loading..."
+          displayOption="large-vertical"
+        />
+      }
 
     </React.Fragment>
   )
