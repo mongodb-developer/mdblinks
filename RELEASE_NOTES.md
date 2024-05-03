@@ -1,5 +1,18 @@
 # MDBLink Release Notes
 
+## 2.1.0
+May 3, 2024
+
+Major changes including new user management and profile page. This version also cleans up the code base
+
+## New Features
+- Added a user profile page
+- List of UTMs loaded from the database, based on the user profile
+
+## Improvements
+- Cleaned up the Shortie page to split it into smaller components
+- Removed the tab to create short links for landing pages
+
 ## 2.0.9
 April 16, 2024
 

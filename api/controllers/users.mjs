@@ -38,7 +38,6 @@ export default class Users {
       }
     ]).toArray();
     user = user[0] || {};
-    console.log("User", user);
 
     return user;
   }

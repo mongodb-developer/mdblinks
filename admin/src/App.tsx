@@ -12,7 +12,7 @@ import {
 import settings from "./config";
 
 import Home from "./pages/Home";
-import Shorties from "./pages/Shorties";
+import Shorties from "./pages/Shorties/index";
 import UTMBuilder from "./pages/UTMBuilder";
 import Landings from "./pages/Landings";
 import Login from "./pages/Login";

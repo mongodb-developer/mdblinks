@@ -30,7 +30,7 @@ export default function MultiBox(props) {
           onChange={value => onChange(value)}
           value={value}
         >
-          {possibleValues.map(s => <ComboboxOption {...s} />)}
+          {possibleValues.map(s => <ComboboxOption key={s.value} {...s} />)}
         </Combobox>
       }
     </>
