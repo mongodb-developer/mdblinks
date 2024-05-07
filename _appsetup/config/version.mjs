@@ -1,12 +1,24 @@
 import fs from "fs/promises";
 
 const apps = ["admin", "api", "landing", "redirector"];
+let versionUpgrade = process.argv[2];
+versionUpgrade = versionUpgrade.replaceAll("-", "") || "patch";
+
+console.log(`Upgrading version ${versionUpgrade}`);
 
 const packageJson = JSON.parse(await fs.readFile("package.json"));
 
 const version = packageJson.version;
 const [major, minor, patch] = version.split(".");
-const newVersion = `${major}.${minor}.${parseInt(patch) + 1}`;
+
+let newVersion = "";
+if (versionUpgrade === "major") {
+  newVersion = `${parseInt(major) + 1}.0.0`;
+} else if (versionUpgrade === "minor") {
+  newVersion = `${major}.${parseInt(minor) + 1}.0`;
+} else {
+  newVersion = `${major}.${minor}.${parseInt(patch) + 1}`;
+}
 
 packageJson.version = newVersion;
 await fs.writeFile("package.json", JSON.stringify(packageJson, null, 2));

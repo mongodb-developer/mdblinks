@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { H2 } from "@leafygreen-ui/typography";
 import TextInput from '@leafygreen-ui/text-input';
-import { Combobox, ComboboxOption } from '@leafygreen-ui/combobox';
 import Copyable from "@leafygreen-ui/copyable";
 import { css } from "@leafygreen-ui/emotion";
+import MultiBox from "../components/MultiBox";
 import { useAuth0 } from "@auth0/auth0-react";
-import { sources, mediums } from "../utils/utmdata";
+import { useApi } from "../providers/Api";
+
 
 export default function Home () {
   const { user } = useAuth0();
@@ -18,6 +19,13 @@ export default function Home () {
   let [term, setTerm] = useState(user.nickname);
   let [urlValid, setUrlValid] = useState(true);
   let [linkWithUTM, setLinkWithUTM] = useState("");
+  let [utmDataOptions, setUtmDataOptions] = useState();
+
+  const { profile } = useApi();
+
+  useEffect(() => {
+    setUtmDataOptions(profile.utms);
+  }, [profile]);
 
   useEffect(() => {
     let trueURL = url;
@@ -78,40 +86,41 @@ export default function Home () {
             state={urlValid ? "valid" : "error"}
             value={url}
           /><br/>
-          <TextInput
+          <MultiBox
             label="Campaign"
-            description="Should always be set to ‘devrel’"
+            description="Should always be set to `devrel`"
             onChange={e => setCampaign(e.target.value)}
             disabled={true}
             value={campaign}
+            possibleValues={utmDataOptions?.campaigns}
           /><br/>
-          <Combobox
+          <MultiBox
             label="Source"
             description="Focus area this link tracks to"
             onChange={value => setSource(value)}
             value={source}
-          >
-            {sources.map(s => <ComboboxOption {...s} />)}
-          </Combobox><br/>
-          <Combobox
+            possibleValues={utmDataOptions?.sources}
+          /><br/>
+          <MultiBox
             label="Medium"
             description="How was the link shared?"
             onChange={value => setMedium(value)}
             value={medium}
-          >
-            {mediums.map(s => <ComboboxOption {...s} />)}
-          </Combobox><br/>
-          <TextInput
+            possibleValues={utmDataOptions?.mediums}
+          /><br/>
+          <MultiBox
             label="Content"
             description="More details to the medium (episode number, video title, conference name)"
             onChange={e => setContent(e.target.value)}
             value={content}
+            possibleValues={utmDataOptions?.contents}
           /><br/>
-          <TextInput
+          <MultiBox
             label="Term"
             description="Used to identify who used or created this link"
             onChange={e => setTerm(e.target.value)}
             value={term}
+            possibleValues={utmDataOptions?.terms}
           /><br/>
         </form>
       </p>

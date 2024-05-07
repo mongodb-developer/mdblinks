@@ -12,12 +12,14 @@ import {
 import settings from "./config";
 
 import Home from "./pages/Home";
-import Shorties from "./pages/Shorties";
+import Shorties from "./pages/Shorties/index";
 import UTMBuilder from "./pages/UTMBuilder";
 import Landings from "./pages/Landings";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Stats from "./pages/Stats";
+import Profile from "./pages/Profile";
+import Callback from "./pages/Callback";
 
 import { ApiProvider } from "./providers/Api";
 
@@ -41,9 +43,11 @@ function App() {
                   <Route path="landings" element={<Landings />} />
                   <Route path="utmbuilder" element={<UTMBuilder />} />
                   <Route path="stats" element={<Stats />} />
+                  <Route path="profile" element={<Profile />} />
                 </Route>
                 <Route path="/" element={<Home />} />
               </Route>
+              <Route path="/callback" element={<Callback />} />
             </Routes>
           </Router>
         </LeafygreenProvider>
