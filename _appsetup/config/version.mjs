@@ -2,7 +2,8 @@ import fs from "fs/promises";
 
 const apps = ["admin", "api", "landing", "redirector"];
 let versionUpgrade = process.argv[2];
-versionUpgrade = versionUpgrade.replaceAll("-", "") || "patch";
+if (!versionUpgrade) versionUpgrade = "patch";
+versionUpgrade = versionUpgrade.replaceAll("-", "");
 
 console.log(`Upgrading version ${versionUpgrade}`);
 

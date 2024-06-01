@@ -1,5 +1,13 @@
 # MDBLink Release Notes
 
+## 2.1.1
+June 1, 2024
+
+Fixes issue #30 about malformed UTMs in the UTM builder, and the new short link modal. The issue was in the new MultiBox component introced in 2.1.0.
+
+### Bug Fixes
+- Fixed issue #30 about malformed UTMs in the UTM builder.
+
 ## 2.1.0
 May 3, 2024
 
