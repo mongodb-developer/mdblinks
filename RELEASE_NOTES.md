@@ -1,5 +1,13 @@
 # MDBLink Release Notes
 
+## 2.1.2
+June 1, 2024
+
+Fixes issue #20 where a page refresh would break the application. A new nginx configuration file was added and the admin container uses it.
+
+### Bug Fixes
+- Fixed issue #20 about page refreshes breaking the application
+
 ## 2.1.1
 June 1, 2024
 
