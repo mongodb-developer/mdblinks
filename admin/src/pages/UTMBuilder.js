@@ -88,9 +88,8 @@ export default function Home () {
           /><br/>
           <MultiBox
             label="Campaign"
-            description="Should always be set to `devrel`"
-            onChange={e => setCampaign(e.target.value)}
-            disabled={true}
+            description="Should always be set to `devrel` for the DevRel team"
+            onChange={value => setCampaign(value)}
             value={campaign}
             possibleValues={utmDataOptions?.campaigns}
           /><br/>
@@ -111,14 +110,14 @@ export default function Home () {
           <MultiBox
             label="Content"
             description="More details to the medium (episode number, video title, conference name)"
-            onChange={e => setContent(e.target.value)}
+            onChange={value => setContent(value)}
             value={content}
             possibleValues={utmDataOptions?.contents}
           /><br/>
           <MultiBox
             label="Term"
             description="Used to identify who used or created this link"
-            onChange={e => setTerm(e.target.value)}
+            onChange={value => setTerm(value)}
             value={term}
             possibleValues={utmDataOptions?.terms}
           /><br/>

@@ -4,13 +4,16 @@ import { Combobox, ComboboxOption } from '@leafygreen-ui/combobox';
 export default function MultiBox(props) {
   let { possibleValues, value, onChange, description, label } = props;
   if (!possibleValues) possibleValues = [];
+  if (possibleValues.length === 1) {
+    onChange(possibleValues[0].value);
+  }
   return (
     <>
       {possibleValues.length === 0 &&
         <TextInput
           label={label}
           description={description}
-          onChange={e => onChange(e)}
+          onChange={e => onChange(e.target.value)}
           value={value}
         />
       }
@@ -18,9 +21,8 @@ export default function MultiBox(props) {
         <TextInput
           label={label}
           description={description}
-          onChange={e => onChange(e)}
           disabled={true}
-          value={value}
+          value={possibleValues[0].value}
         />
       }
       {possibleValues.length > 1 &&
