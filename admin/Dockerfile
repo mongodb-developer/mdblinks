@@ -35,8 +35,8 @@ FROM nginx:alpine
 # Copy react build files to nginx root directory
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Change nginx port to 8080
-RUN sed -ri -e 's!80!8080!g' /etc/nginx/conf.d/default.conf
+# Overwrite container default.conf with nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Export port 8080
 EXPOSE 8080

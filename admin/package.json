@@ -1,6 +1,6 @@
 {
   "name": "admin",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "private": true,
   "dependencies": {
     "@auth0/auth0-react": "^1.10.2",
