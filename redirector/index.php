@@ -1,6 +1,8 @@
 <?
 $apiUrl = $_ENV["API_URL"];
-$url = $apiUrl . "/routes/redirect?route=" . $_SERVER['REQUEST_URI'];
+$route = $_SERVER['REQUEST_URI'];
+$route = substr($route, 0, strpos($route, "?") ?: strlen($route));
+$url = $apiUrl . "/routes/redirect?route=" . $route;
 
 function get_ip() {
   // Shamelessly stolen from https://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php?page=2&tab=scoredesc

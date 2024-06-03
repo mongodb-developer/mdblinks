@@ -1,5 +1,13 @@
 # MDBLink Release Notes
 
+## 2.1.3
+June 3, 2024
+
+Fixes issue #32 where the redirection service would break if query parameters were added to the short link.
+
+### Bug Fixes
+- Fixed issue #32 by removing everything after the `?` in the short link redirector service.
+
 ## 2.1.2
 June 1, 2024
 
